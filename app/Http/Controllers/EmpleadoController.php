@@ -11,6 +11,7 @@ use App\Http\Requests\EmpleadoCreateRequest;
 use App\Http\Requests\EmpleadoEditRequest;
 use DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class EmpleadoController extends Controller
 {
@@ -82,6 +83,7 @@ class EmpleadoController extends Controller
         if($request->hasFile($inputFile) && $request->file($inputFile)->isValid()) {
             $fileUpload = $request->file($inputFile);
             $nameFile = $fileUpload->getClientOriginalName();
+            $nameFile = Str::random(5) . '-' . $empleado->name . '-' . $nameFile;
             
             $image = new EmpleadoImagen();
             $image->idempleado = $empleado->id;
@@ -193,6 +195,7 @@ class EmpleadoController extends Controller
         if($request->hasFile($inputFile) && $request->file($inputFile)->isValid()) {
             $fileUpload = $request->file($inputFile);
             $nameFile = $fileUpload->getClientOriginalName();
+            $nameFile = Str::random(5) . '-' . $empleado->name . '-' . $nameFile;
             
             if($fileUpload->getMimeType() != null) {
                 if($fileUpload->getMimeType() != 'image/jpeg' && $fileUpload->getMimeType() != 'image/png'
